@@ -65,17 +65,47 @@ class SIUnitsTest {
 	//TODO add test cases
 	@Test
 	void testPoweredAddSIFactor() {
+		double value = 1000.0;
+		double result;
+		factor = SIUnits.KILO;
+		int power = 2;
 		
+		result = factor.addSIFactor(value, power);
+		assertEquals(value / 1e6, result);
 	}
 	
 	@Test
 	void testPoweredRemoveSIFactor() {
+		double value = 1000.0;
+		double result;
+		factor = SIUnits.KILO;
+		int power = 2;
 		
+		result = factor.removeSIFactor(value, power);
+		assertEquals(value * 1e6, result);
 	}
 	
 	@Test
 	void testPoweredChangeSIFactor() throws NonSIFactorException {
+		double value = 1000.0;
+		double result;
+		factor = SIUnits.KILO;
+		int power = 2;
 		
+		result = factor.addSIFactor(value, power);
+		assertEquals(1e-3, result);
+		
+		result = factor.changeTo(result, SIUnits.MEGA, power);
+		assertEquals(1e-9, result);
+		
+		result = SIUnits.MEGA.changeTo(result, SIUnits.KILO, power);
+		assertEquals(value/1e6, result);
+		
+		result = SIUnits.KILO.changeTo(result, SIUnits.CENTI, power);
+		assertEquals(value/1e-4, result);
+		
+		result = SIUnits.CENTI.removeSIFactor(result, power);
+		assertEquals(value, result);
 	}
 
 }
