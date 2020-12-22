@@ -24,7 +24,7 @@ public enum PressureUnits implements UnitChanger{
 	public static final int LUMINOUSITY_DIMENSION_EXPONENT = 0;
 	
 	private static final HashMap<PressureUnits, Double> FROM_PASCAL = 
-			Mapping.generateHashMap(new Double[] {1.0, 1e-5, 9.8692e-6, 7.5006e-3, 145.04e-6, 10.0}, PressureUnits.values());
+			Mapping.generateHashMap(new Double[] {1.0, 1e-5, 0.00000986923266716, 7.5006e-3, 145.04e-6, 10.0}, PressureUnits.values());
 	private static final HashMap<PressureUnits, Double> FROM_BAR = 
 			Mapping.generateHashMap(new Double[] {1e5, 1.0, 0.98692, 750.06, 14.504, 1e6}, PressureUnits.values());
 	private static final HashMap<PressureUnits, Double> FROM_ATM = 
