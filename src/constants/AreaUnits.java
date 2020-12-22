@@ -18,6 +18,8 @@ public enum AreaUnits implements UnitChanger{
 	
 	private static final AreaUnits[] UNITS = {SQMETER, HECTARE, ACRE};
 	
+	private static final String PREFIX = "sq";
+	
 	public static final int LENGHT_DIMENSION_EXPONENT = 2;
 	public static final int MASS_DIMENSION_EXPONENT = 0;
 	public static final int TIME_DIMENSION_EXPONENT = 0;
@@ -68,7 +70,7 @@ public enum AreaUnits implements UnitChanger{
 			return symbol;
 		}
 		
-		return "sq" + unit.toString();
+		return PREFIX + unit.toString();
 	}
 	
 	public AreaUnits getISU() {
