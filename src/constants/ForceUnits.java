@@ -29,7 +29,7 @@ public enum ForceUnits implements UnitChanger{
 	private static final HashMap<ForceUnits, Double> FROM_KILOPOND = 
 			Mapping.generateHashMap(new Double[] {9.80665, 980665.0, 1.0, 2.2046, 70.932}, ForceUnits.values());
 	private static final HashMap<ForceUnits, Double> FROM_POUNDFORCE = 
-			Mapping.generateHashMap(new Double[] {4.448222, 444822.2, 0.45359, 1.0, 32.174}, ForceUnits.values());
+			Mapping.generateHashMap(new Double[] {4.448221615255, 444822.1615255, 0.45359, 1.0, 32.17404855639}, ForceUnits.values());
 	private static final HashMap<ForceUnits, Double> FROM_POUNDAL = 
 			Mapping.generateHashMap(new Double[] {0.138255, 13825.5, 0.014098, 0.031081, 1.0}, ForceUnits.values());
 
