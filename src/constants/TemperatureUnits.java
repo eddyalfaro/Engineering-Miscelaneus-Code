@@ -5,10 +5,10 @@ import exceptions.InvalidInputException;
 
 public enum TemperatureUnits implements UnitChanger{
 	
-	CELCIUS("C", false),
-	KELVIN("K", true),
-	FARENHEIT("F", false),
-	RANKINE("R", false);
+	CELCIUS("C", false, false),
+	KELVIN("K", true, true),
+	FARENHEIT("F", false, false),
+	RANKINE("R", false, true);
 	
 	public static final int LENGHT_DIMENSION_EXPONENT = 0;
 	public static final int MASS_DIMENSION_EXPONENT = 0;
@@ -20,14 +20,20 @@ public enum TemperatureUnits implements UnitChanger{
 	
 	private String symbol;
 	private boolean isSI;
+	private boolean isAbsolute;
 	
-	private TemperatureUnits(String symbol, boolean isSI) {
+	private TemperatureUnits(String symbol, boolean isSI, boolean isAbsolute) {
 		this.symbol = symbol;
 		this.isSI = isSI;
+		this.isAbsolute = isAbsolute;
 	}
 	
-	public TemperatureUnits getISU() {
+	public static TemperatureUnits getISU() {
 		return KELVIN;
+	}
+	
+	public boolean isAbsolute() {
+		return isAbsolute;
 	}
 	
 	public boolean isSI() {

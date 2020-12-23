@@ -7,17 +7,13 @@ import exceptions.InvalidInputException;
 import properties.abstracts.Property;
 
 public class Pressure extends Property<PressureUnits>{
-	
-	private UnitChanger unitChanger;
-	
+		
 	public Pressure(double value, PressureUnits unit) {
 		super(value, unit);
-		unitChanger = unit;
 	}
 	
 	public Pressure(double value, SIUnits factor, PressureUnits unit) {
 		super(value, factor, unit);
-		unitChanger = unit;
 	}
 	
 	@Override
@@ -26,7 +22,7 @@ public class Pressure extends Property<PressureUnits>{
 	}
 
 	@Override
-	public double getValueIn(PressureUnits units) throws InvalidInputException {
+	public double getValueIn(PressureUnits units) throws InvalidInputException{
 		return 0;
 	}
 

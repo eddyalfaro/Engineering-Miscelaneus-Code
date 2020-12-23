@@ -41,12 +41,16 @@ public abstract class Property<Unit extends UnitChanger> implements Comparable<P
 	public double getValue() {
 		return value;
 	}
-	
-	public String getUnits() {
+		
+	public String printUnits() {
 		if (!hasSIFactor) {
 			return unit.toString();
 		}
 		return ((SIUnits) factor) + unit.toString();
+	}
+	
+	public Unit getUnits() {
+		return unit;
 	}
 	
 	public abstract double getValueIn(Unit units) throws InvalidInputException;
