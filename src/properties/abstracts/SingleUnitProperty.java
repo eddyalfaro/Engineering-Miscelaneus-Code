@@ -6,14 +6,14 @@ import constants.interfaces.UnitChanger;
 
 import exceptions.InvalidInputException;
 import exceptions.NonSIFactorException;
-import exceptions.SIFactorExeception;
+import exceptions.SIFactorException;
 
 public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Comparable<SingleUnitProperty<Unit>>{
 	
 	protected Unit unit;
 	private double value;
 	
-	private SIFactor factor;
+	protected SIFactor factor = null;
 	private boolean hasSIFactor = false;	
 
 	protected static final int INPUT_EXCEPTION = -111;
@@ -27,7 +27,10 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	public SingleUnitProperty(double value, SIUnits factor, Unit unit) {
 		this(value, unit);
 		this.factor = factor;
-		hasSIFactor = true;
+		
+		if (factor != null) {
+			hasSIFactor = true;	
+		}
 	}
 	
 	public String toString() {
@@ -52,13 +55,18 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		return ((SIUnits) factor) + unit.toString();
 	}
 	
-	public abstract double getValueIn(Unit units) throws InvalidInputException;
+	public abstract double getValueIn(Unit units) throws InvalidInputException, SIFactorException;
 	
-	public abstract SingleUnitProperty<Unit> changeUnits(Unit newUnits) throws InvalidInputException;
+	public abstract SingleUnitProperty<Unit> changeUnits(Unit newUnits) throws InvalidInputException, SIFactorException;
 	
-	public void addSIFactor(SIUnits factor) throws SIFactorExeception{
+	/**
+	 * 
+	 * @param factor
+	 * @throws SIFactorException
+	 */
+	public void addSIFactor(SIUnits factor) throws SIFactorException{
 		if (hasSIFactor) {
-			throw new SIFactorExeception("Units already contains a SI factor: " + this.toString());
+			throw new SIFactorException("Units already contains a SI factor: " + this.toString());
 		}
 		
 		this.factor = factor;		
@@ -66,9 +74,13 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		hasSIFactor = true;
 	}
 	
-	public void removeSIFactor() throws SIFactorExeception{
+	/**
+	 * 
+	 * @throws SIFactorException
+	 */
+	public void removeSIFactor() throws SIFactorException{
 		if (!hasSIFactor) {
-			throw new SIFactorExeception("There is no SI Factor to remove");
+			throw new SIFactorException("There is no SI Factor to remove");
 		}
 		
 		this.value = factor.removeSIFactor(value);
@@ -76,10 +88,17 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		hasSIFactor = false;
 	}
 	
-	public void replaceSIFactor(SIUnits newFactor) throws SIFactorExeception, NonSIFactorException {
+	/**
+	 * 
+	 * 
+	 * @param newFactor
+	 * @throws SIFactorException
+	 * @throws NonSIFactorException
+	 */
+	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIFactorException {
 		//TODO Check if the values within the reference change without updating the reference
 		if(!hasSIFactor) {
-			throw new SIFactorExeception("There is no SI Factor to replace");
+			throw new SIFactorException("There is no SI Factor to replace");
 		}
 		
 		removeSIFactor();

@@ -1,10 +1,10 @@
 package exceptions;
 
-public class SIFactorExeception extends Exception {
+public class SIFactorException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
-	public SIFactorExeception(String msg) {
+	public SIFactorException(String msg) {
 		super(msg);
 	}
 

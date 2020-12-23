@@ -21,7 +21,7 @@ class TemperatureTest {
 		testNum++;
 		initialValue = 25;
 		initialUnit = TemperatureUnits.CELCIUS;
-		initial = Temperature.setTempAt(initialValue, initialUnit);
+		initial = Temperature.setAt(initialValue, initialUnit);
 	}
 
 	@Test
@@ -117,17 +117,17 @@ class TemperatureTest {
 	@Test
 	void testCompareToPropertyOfTemperatureUnits() throws InvalidInputException {
 		System.out.println("Test #" + testNum);
-		Temperature temp1 = Temperature.setTempAt(0, TemperatureUnits.CELCIUS);
-		Temperature temp2 = Temperature.setTempAt(32, TemperatureUnits.FARENHEIT);		
+		Temperature temp1 = Temperature.setAt(0, TemperatureUnits.CELCIUS);
+		Temperature temp2 = Temperature.setAt(32, TemperatureUnits.FARENHEIT);		
 		assertEquals(0, temp1.compareTo(temp2));
 		System.out.println(temp1);
 		System.out.println(temp2);
 		
-		temp2 = Temperature.setTempAt(15, TemperatureUnits.KELVIN);
+		temp2 = Temperature.setAt(15, TemperatureUnits.KELVIN);
 		assertEquals(1, temp1.compareTo(temp2));
 		System.out.println(temp2);
 		
-		temp2 = Temperature.setTempAt(30, TemperatureUnits.CELCIUS);
+		temp2 = Temperature.setAt(30, TemperatureUnits.CELCIUS);
 		temp2 = temp2.changeUnits(TemperatureUnits.RANKINE);
 		assertEquals(-1, temp1.compareTo(temp2));
 		System.out.println(temp2);

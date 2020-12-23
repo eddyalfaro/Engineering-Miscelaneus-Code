@@ -60,7 +60,7 @@ public enum PressureUnits implements UnitChanger{
 		this.area = area;
 	}
 	
-	public PressureUnits getISU() {
+	public static PressureUnits getISU() {
 		return PASCAL;
 	}
 	

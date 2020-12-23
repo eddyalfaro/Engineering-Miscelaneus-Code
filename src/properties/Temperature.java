@@ -3,6 +3,7 @@ package properties;
 import constants.SIUnits;
 import constants.TemperatureUnits;
 import exceptions.InvalidInputException;
+import exceptions.SIFactorException;
 import properties.abstracts.SingleUnitProperty;
 
 public class Temperature extends SingleUnitProperty<TemperatureUnits>{
@@ -17,14 +18,14 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	}
 	
 	public static Temperature getInSIUnits(double value, TemperatureUnits units) throws InvalidInputException {
-		return setTempAt(value, units).changeUnits(TemperatureUnits.getISU());
+		return setAt(value, units).changeUnits(TemperatureUnits.getISU());
 	}
 	
 	public static Temperature getInSIUnits(Temperature temp) throws InvalidInputException {
 		return temp.changeUnits(TemperatureUnits.getISU());
 	}
 	
-	public static Temperature setTempAt(double value, TemperatureUnits units) throws InvalidInputException {
+	public static Temperature setAt(double value, TemperatureUnits units) throws InvalidInputException {
 		if (units.changeUnits(value, TemperatureUnits.KELVIN) <= 0) {
 			throw new InvalidInputException(ERROR1);
 		}
@@ -53,7 +54,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	@Override
 	public Temperature changeUnits(TemperatureUnits newUnits) throws InvalidInputException {
 		double newValue = getValueIn(newUnits);
-		return setTempAt(newValue, newUnits);
+		return setAt(newValue, newUnits);
 	}
 	
 	public void addSIFactor(SIUnits factor) {
@@ -77,7 +78,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 		try {
 			oValue = o.getValueIn(super.unit);
 			result = thisValue.compareTo(oValue);
-		} catch (InvalidInputException e) {
+		} catch (InvalidInputException|SIFactorException e) {
 			result = INPUT_EXCEPTION;
 		} catch (NullPointerException e) {
 			result = NULL_EXCEPTION;
