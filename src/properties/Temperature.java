@@ -7,8 +7,10 @@ import properties.abstracts.SingleUnitProperty;
 
 public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	
-	public static final Temperature OIL_SC_FARENHEIT = setTempAt(60.0, TemperatureUnits.FARENHEIT);
-	public static final Temperature STP_SC_FARENHEIT = setTempAt(32.0, TemperatureUnits.FARENHEIT);
+	public static final Temperature OIL_SC_FARENHEIT = new Temperature(60.0, TemperatureUnits.FARENHEIT);
+	public static final Temperature STP_SC_FARENHEIT = new Temperature(32.0, TemperatureUnits.FARENHEIT);
+	
+	private static final String ERROR1 = "Invalid temperature value";
 		
 	private Temperature(double value, TemperatureUnits unit) {
 		super(value, unit);
@@ -22,7 +24,10 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 		return temp.changeUnits(TemperatureUnits.getISU());
 	}
 	
-	public static Temperature setTempAt(double value, TemperatureUnits units) {
+	public static Temperature setTempAt(double value, TemperatureUnits units) throws InvalidInputException {
+		if (units.changeUnits(value, TemperatureUnits.KELVIN) <= 0) {
+			throw new InvalidInputException(ERROR1);
+		}
 		return new Temperature(value, units);
 	}
 	
