@@ -10,7 +10,7 @@ import exceptions.SIFactorExeception;
 
 public abstract class Property<Unit extends UnitChanger> implements Comparable<Property<Unit>>{
 	
-	private Unit unit;
+	protected Unit unit;
 	private double value;
 	
 	private SIFactor factor;
@@ -47,10 +47,6 @@ public abstract class Property<Unit extends UnitChanger> implements Comparable<P
 			return unit.toString();
 		}
 		return ((SIUnits) factor) + unit.toString();
-	}
-	
-	public Unit getUnits() {
-		return unit;
 	}
 	
 	public abstract double getValueIn(Unit units) throws InvalidInputException;

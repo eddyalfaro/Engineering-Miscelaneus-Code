@@ -10,6 +10,9 @@ public class Temperature extends Property<TemperatureUnits>{
 	public static final Temperature OIL_SC_FARENHEIT = setTempAt(60.0, TemperatureUnits.FARENHEIT);
 	public static final Temperature STP_SC_FARENHEIT = setTempAt(32.0, TemperatureUnits.FARENHEIT);
 	
+	private final int INPUT_EXCEPTION = -111;
+	private final int NULL_EXCEPTION = -222;
+	
 	private Temperature(double value, TemperatureUnits unit) {
 		super(value, unit);
 	}
@@ -29,7 +32,7 @@ public class Temperature extends Property<TemperatureUnits>{
 	@Override
 	public double getValueIn(TemperatureUnits units) throws InvalidInputException {
 		double value = getValue();		
-		double result = super.getUnits().changeUnits(value, units);				
+		double result = super.unit.changeUnits(value, units);				
 		return result;
 	}
 
@@ -54,17 +57,18 @@ public class Temperature extends Property<TemperatureUnits>{
 	@Override
 	public int compareTo(Property<TemperatureUnits> o) {
 		Double thisValue = this.getValue();
-		Double oValue = o.getValue();
-		
-		if (this.getUnits() != o.getUnits()) {
-			try {
-				oValue = o.getUnits().changeUnits(oValue, this.getUnits());
-			} catch (InvalidInputException e) {
-				e.printStackTrace();
-			}
+		Double oValue = null;
+		int result;
+		try {
+			oValue = o.getValueIn(super.unit);
+			result = thisValue.compareTo(oValue);
+		} catch (InvalidInputException e) {
+			result = this.INPUT_EXCEPTION;
+		} catch (NullPointerException e) {
+			result = this.NULL_EXCEPTION;
 		}
 		
-		return thisValue.compareTo(oValue);
+		return result;
 	}
 
 }
