@@ -10,8 +10,8 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	public static final Temperature OIL_SC_FARENHEIT = setTempAt(60.0, TemperatureUnits.FARENHEIT);
 	public static final Temperature STP_SC_FARENHEIT = setTempAt(32.0, TemperatureUnits.FARENHEIT);
 	
-	private final int INPUT_EXCEPTION = -111;
-	private final int NULL_EXCEPTION = -222;
+	private static final int INPUT_EXCEPTION = -111;
+	private static final int NULL_EXCEPTION = -222;
 	
 	private Temperature(double value, TemperatureUnits unit) {
 		super(value, unit);
@@ -27,6 +27,18 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	
 	public static Temperature setTempAt(double value, TemperatureUnits units) {
 		return new Temperature(value, units);
+	}
+	
+	public Temperature getInSIUnits() {
+		Temperature temp = null;
+		
+		try {
+			temp = getInSIUnits(this);
+		} catch (InvalidInputException e) {
+			e.printStackTrace();
+		}
+		
+		return temp;
 	}
 
 	@Override
@@ -63,9 +75,9 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 			oValue = o.getValueIn(super.unit);
 			result = thisValue.compareTo(oValue);
 		} catch (InvalidInputException e) {
-			result = this.INPUT_EXCEPTION;
+			result = INPUT_EXCEPTION;
 		} catch (NullPointerException e) {
-			result = this.NULL_EXCEPTION;
+			result = NULL_EXCEPTION;
 		}
 		
 		return result;

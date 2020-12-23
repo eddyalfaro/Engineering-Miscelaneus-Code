@@ -29,9 +29,9 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	
 	public String toString() {
 		if (hasSIFactor) {
-			return "" + value + ((SIUnits) factor) + unit;
+			return String.format("%.3f%s%s", value, ((SIUnits) factor).toString(), unit.toString());
 		}
-		return "" + value + unit;
+		return String.format("%.3f%s", value, unit.toString());
 	}
 	
 	public boolean hasSIFactor() {
