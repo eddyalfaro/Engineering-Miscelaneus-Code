@@ -2,9 +2,8 @@ package properties;
 
 import constants.PressureUnits;
 import constants.SIUnits;
-import constants.interfaces.SIFactor;
 import exceptions.InvalidInputException;
-import exceptions.SIFactorExeception;
+import exceptions.SIFactorException;
 
 import properties.abstracts.SingleUnitProperty;
 
@@ -24,7 +23,7 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 		return setAt(value, PressureUnits.getISU());
 	}
 	
-	public static Pressure getInSIUnits(Pressure pressure) throws InvalidInputException, SIFactorExeception {
+	public static Pressure getInSIUnits(Pressure pressure) throws InvalidInputException, SIFactorException {
 		return pressure.changeUnits(PressureUnits.getISU());
 	}
 	
@@ -43,13 +42,13 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 	}
 		
 	@Override
-	public Pressure changeUnits(PressureUnits newUnit) throws InvalidInputException, SIFactorExeception {
+	public Pressure changeUnits(PressureUnits newUnit) throws InvalidInputException, SIFactorException {
 		double newValue = this.getValueIn(newUnit);
 		return setAt(newValue, newUnit);
 	}
 
 	@Override
-	public double getValueIn(PressureUnits units) throws InvalidInputException, SIFactorExeception{		
+	public double getValueIn(PressureUnits units) throws InvalidInputException, SIFactorException{		
 		SIUnits temp = (SIUnits) factor;
 		if (hasSIFactor()) {
 			removeSIFactor();
@@ -80,7 +79,7 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 			temp2 = getInSIUnits((Pressure) o);
 			value = temp1.getValue();
 			result = value.compareTo(temp2.getValue());
-		} catch (InvalidInputException | SIFactorExeception e) {
+		} catch (InvalidInputException | SIFactorException e) {
 			return INPUT_EXCEPTION;
 		} catch (NullPointerException e) {
 			return NULL_EXCEPTION;
