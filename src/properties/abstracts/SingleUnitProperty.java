@@ -14,7 +14,10 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	private double value;
 	
 	private SIFactor factor;
-	private boolean hasSIFactor = false;
+	private boolean hasSIFactor = false;	
+
+	protected static final int INPUT_EXCEPTION = -111;
+	protected static final int NULL_EXCEPTION = -222;
 	
 	public SingleUnitProperty(double value, Unit unit) {
 		this.unit = unit;

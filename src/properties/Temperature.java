@@ -9,10 +9,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	
 	public static final Temperature OIL_SC_FARENHEIT = setTempAt(60.0, TemperatureUnits.FARENHEIT);
 	public static final Temperature STP_SC_FARENHEIT = setTempAt(32.0, TemperatureUnits.FARENHEIT);
-	
-	private static final int INPUT_EXCEPTION = -111;
-	private static final int NULL_EXCEPTION = -222;
-	
+		
 	private Temperature(double value, TemperatureUnits unit) {
 		super(value, unit);
 	}
@@ -62,7 +59,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 		return;
 	}
 	
-	public void replaceSIFactor() {
+	public void replaceSIFactor(SIUnits newFactor) {
 		return;
 	}
 
@@ -71,6 +68,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 		Double thisValue = this.getValue();
 		Double oValue = null;
 		int result;
+		
 		try {
 			oValue = o.getValueIn(super.unit);
 			result = thisValue.compareTo(oValue);
