@@ -3,9 +3,9 @@ package properties;
 import constants.SIUnits;
 import constants.TemperatureUnits;
 import exceptions.InvalidInputException;
-import properties.abstracts.Property;
+import properties.abstracts.SingleUnitProperty;
 
-public class Temperature extends Property<TemperatureUnits>{
+public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	
 	public static final Temperature OIL_SC_FARENHEIT = setTempAt(60.0, TemperatureUnits.FARENHEIT);
 	public static final Temperature STP_SC_FARENHEIT = setTempAt(32.0, TemperatureUnits.FARENHEIT);
@@ -55,7 +55,7 @@ public class Temperature extends Property<TemperatureUnits>{
 	}
 
 	@Override
-	public int compareTo(Property<TemperatureUnits> o) {
+	public int compareTo(SingleUnitProperty<TemperatureUnits> o) {
 		Double thisValue = this.getValue();
 		Double oValue = null;
 		int result;

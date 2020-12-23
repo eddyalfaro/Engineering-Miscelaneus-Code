@@ -4,9 +4,9 @@ import constants.PressureUnits;
 import constants.SIUnits;
 import constants.interfaces.UnitChanger;
 import exceptions.InvalidInputException;
-import properties.abstracts.Property;
+import properties.abstracts.SingleUnitProperty;
 
-public class Pressure extends Property<PressureUnits>{
+public class Pressure extends SingleUnitProperty<PressureUnits>{
 		
 	public Pressure(double value, PressureUnits unit) {
 		super(value, unit);
@@ -27,7 +27,7 @@ public class Pressure extends Property<PressureUnits>{
 	}
 
 	@Override
-	public int compareTo(Property<PressureUnits> o) {
+	public int compareTo(SingleUnitProperty<PressureUnits> o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

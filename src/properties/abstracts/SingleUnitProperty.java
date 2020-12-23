@@ -8,7 +8,7 @@ import exceptions.InvalidInputException;
 import exceptions.NonSIFactorException;
 import exceptions.SIFactorExeception;
 
-public abstract class Property<Unit extends UnitChanger> implements Comparable<Property<Unit>>{
+public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Comparable<SingleUnitProperty<Unit>>{
 	
 	protected Unit unit;
 	private double value;
@@ -16,12 +16,12 @@ public abstract class Property<Unit extends UnitChanger> implements Comparable<P
 	private SIFactor factor;
 	private boolean hasSIFactor = false;
 	
-	public Property(double value, Unit unit) {
+	public SingleUnitProperty(double value, Unit unit) {
 		this.unit = unit;
 		this.value = value;
 	}
 	
-	public Property(double value, SIUnits factor, Unit unit) {
+	public SingleUnitProperty(double value, SIUnits factor, Unit unit) {
 		this(value, unit);
 		this.factor = factor;
 		hasSIFactor = true;
@@ -51,7 +51,7 @@ public abstract class Property<Unit extends UnitChanger> implements Comparable<P
 	
 	public abstract double getValueIn(Unit units) throws InvalidInputException;
 	
-	public abstract Property<Unit> changeUnits(Unit newUnits) throws InvalidInputException;
+	public abstract SingleUnitProperty<Unit> changeUnits(Unit newUnits) throws InvalidInputException;
 	
 	public void addSIFactor(SIUnits factor) throws SIFactorExeception{
 		if (hasSIFactor) {
@@ -83,5 +83,5 @@ public abstract class Property<Unit extends UnitChanger> implements Comparable<P
 		addSIFactor(newFactor);
 	}
 	
-	public abstract int compareTo(Property<Unit> o);
+	public abstract int compareTo(SingleUnitProperty<Unit> o);
 }
