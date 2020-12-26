@@ -49,7 +49,7 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	}
 		
 	public String printUnits() {
-		if (!hasSIFactor) {
+		if (factor == null) {
 			return unit.toString();
 		}
 		return ((SIUnits) factor) + unit.toString();
