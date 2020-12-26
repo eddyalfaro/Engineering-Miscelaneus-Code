@@ -41,6 +41,9 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 		if (value < 0) {
 			throw new InvalidInputException(ERROR2);
 		}
+		if (isu != MassUnits.GRAM) {
+			throw new InvalidInputException("NonISU");
+		}
 		if (isu == MassUnits.KILOGRAM) {
 			throw new InvalidInputException(ERROR1);
 		}
@@ -52,20 +55,31 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
 			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
 		}
-		
-		super.addSIFactor(factor);
+		if (unit == MassUnits.GRAM && factor == SIUnits.KILO) {
+			try {
+				this.value = unit.changeUnits(value, MassUnits.KILOGRAM);
+				unit = MassUnits.KILOGRAM;
+				factor = null;
+				hasSIFactor = true;
+			} catch (InvalidInputException e) {
+				e.printStackTrace();
+			}			
+		}else {
+			super.addSIFactor(factor);
+		}
 	}
 	
 	//TODO test
 	public void removeSIFactor() throws SIFactorException {
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
-			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+			throw new SIFactorException("NonSIUnit");
 		} 
 		
 		if (unit == MassUnits.KILOGRAM) {
 			try {
 				this.value = unit.changeUnits(value, MassUnits.GRAM);
 				this.factor = null;
+				//System.out.println("changing hasSIFactor");
 				this.hasSIFactor = false;
 				this.unit = MassUnits.GRAM;
 			} catch (InvalidInputException e) {
