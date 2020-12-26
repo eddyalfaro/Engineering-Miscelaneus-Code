@@ -51,7 +51,7 @@ public enum MassUnits implements UnitChanger{
 		this.isSI = isSI;
 	}
 	
-	public MassUnits getISU() {
+	public static MassUnits getISU() {
 		return KILOGRAM;
 	}
 	

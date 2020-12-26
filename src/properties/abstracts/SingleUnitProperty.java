@@ -11,10 +11,10 @@ import exceptions.SIFactorException;
 public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Comparable<SingleUnitProperty<Unit>>{
 	
 	protected Unit unit;
-	private double value;
+	protected double value;
 	
 	protected SIFactor factor = null;
-	private boolean hasSIFactor = false;	
+	protected boolean hasSIFactor = false;	
 
 	protected static final int INPUT_EXCEPTION = -111;
 	protected static final int NULL_EXCEPTION = -222;
@@ -34,7 +34,7 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	}
 	
 	public String toString() {
-		if (hasSIFactor) {
+		if (factor != null) {
 			return String.format("%.3f%s%s", value, ((SIUnits) factor).toString(), unit.toString());
 		}
 		return String.format("%.3f%s", value, unit.toString());
