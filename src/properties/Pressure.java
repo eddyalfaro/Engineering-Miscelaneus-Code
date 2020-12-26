@@ -3,11 +3,12 @@ package properties;
 import constants.PressureUnits;
 import constants.SIUnits;
 import exceptions.InvalidInputException;
+import exceptions.NonSIException;
 import exceptions.SIFactorException;
 
 import properties.abstracts.SingleUnitProperty;
 
-public class Pressure extends SingleUnitProperty<PressureUnits>{
+public class Pressure extends SingleUnitProperty<PressureUnits>{	
 	
 	private static final String ERROR1 = "Negative pressure";
 			
@@ -24,6 +25,9 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 	}
 	
 	public static Pressure getInSIUnits(Pressure pressure) throws InvalidInputException, SIFactorException {
+		if (pressure == null) {
+			throw new NullPointerException();
+		}
 		return pressure.changeUnits(PressureUnits.getISU());
 	}
 	
@@ -39,6 +43,27 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 			throw new InvalidInputException(ERROR1);
 		}
 		return new Pressure(value, factor, unit);	
+	}
+	
+	public void addSIFactor(SIUnits factor) throws SIFactorException {
+		if (!unit.isSI()) {
+			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+		}
+		super.addSIFactor(factor);
+	}
+	
+	public void removeSIFactor() throws SIFactorException {
+		if (!unit.isSI()) {
+			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+		}
+		super.removeSIFactor();
+	}
+	
+	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIException {
+		if (!unit.isSI()) {
+			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+		}
+		super.replaceSIFactor(newFactor);
 	}
 		
 	@Override

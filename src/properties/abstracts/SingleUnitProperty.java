@@ -5,7 +5,7 @@ import constants.interfaces.SIFactor;
 import constants.interfaces.UnitChanger;
 
 import exceptions.InvalidInputException;
-import exceptions.NonSIFactorException;
+import exceptions.NonSIException;
 import exceptions.SIFactorException;
 
 public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Comparable<SingleUnitProperty<Unit>>{
@@ -93,9 +93,9 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	 * 
 	 * @param newFactor
 	 * @throws SIFactorException
-	 * @throws NonSIFactorException
+	 * @throws NonSIException
 	 */
-	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIFactorException {
+	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIException {
 		//TODO Check if the values within the reference change without updating the reference
 		if(!hasSIFactor) {
 			throw new SIFactorException("There is no SI Factor to replace");

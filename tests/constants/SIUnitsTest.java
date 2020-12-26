@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import constants.interfaces.SIFactor;
-import exceptions.NonSIFactorException;
+import exceptions.NonSIException;
 
 class SIUnitsTest {
 	
@@ -42,7 +42,7 @@ class SIUnitsTest {
 	}
 
 	@Test
-	void testChangeSIFactor() throws NonSIFactorException {
+	void testChangeSIFactor() throws NonSIException {
 		double value = 1000.0;
 		double result;
 		factor = SIUnits.KILO;
@@ -86,7 +86,7 @@ class SIUnitsTest {
 	}
 	
 	@Test
-	void testPoweredChangeSIFactor() throws NonSIFactorException {
+	void testPoweredChangeSIFactor() throws NonSIException {
 		double value = 1000.0;
 		double result;
 		factor = SIUnits.KILO;

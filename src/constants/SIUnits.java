@@ -1,7 +1,7 @@
 package constants;
 
 import constants.interfaces.SIFactor;
-import exceptions.NonSIFactorException;
+import exceptions.NonSIException;
 
 public enum SIUnits implements SIFactor{
 	
@@ -58,10 +58,10 @@ public enum SIUnits implements SIFactor{
 	 * Changes SI factor of the given value. The returning value would be in the given SI units
 	 */
 	@Override
-	public <E extends Enum<E>> double changeTo(Double value, E to) throws NonSIFactorException{
+	public <E extends Enum<E>> double changeTo(Double value, E to) throws NonSIException{
 		value = removeSIFactor(value);
 		if (!(to instanceof SIUnits)) {
-			throw new NonSIFactorException("input <E> does not corresponds to an type SIUnit");
+			throw new NonSIException("input <E> does not corresponds to an type SIUnit");
 		}
 		return (value / ((SIUnits) to).factor);	
 	}
@@ -88,11 +88,11 @@ public enum SIUnits implements SIFactor{
 	 SI units to the given power
 	 */
 	@Override
-	public <E extends Enum<E>> double changeTo(Double value, E to, int powerOf) throws NonSIFactorException {
+	public <E extends Enum<E>> double changeTo(Double value, E to, int powerOf) throws NonSIException {
 		value = removeSIFactor(value, powerOf);
 		
 		if (!(to instanceof SIUnits)) {
-			throw new NonSIFactorException("input <E> does not corresponds to an type SIUnit");
+			throw new NonSIException("input <E> does not corresponds to an type SIUnit");
 		}
 		
 		return (value / Math.pow(((SIUnits) to).factor, powerOf));	

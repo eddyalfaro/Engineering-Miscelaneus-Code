@@ -1,6 +1,6 @@
 package constants.interfaces;
 
-import exceptions.NonSIFactorException;
+import exceptions.NonSIException;
 
 public interface SIFactor {
 	
@@ -12,8 +12,8 @@ public interface SIFactor {
 
 	public <E extends Enum<E>> double removeSIFactor(Double value, int powerOf);
 
-	public <E extends Enum<E>> double changeTo(Double value, E to) throws NonSIFactorException;
+	public <E extends Enum<E>> double changeTo(Double value, E to) throws NonSIException;
 	
-	public <E extends Enum<E>> double changeTo(Double value, E to, int powerOf) throws NonSIFactorException;
+	public <E extends Enum<E>> double changeTo(Double value, E to, int powerOf) throws NonSIException;
 
 }
