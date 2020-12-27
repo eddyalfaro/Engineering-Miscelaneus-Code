@@ -104,6 +104,4 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		removeSIFactor();
 		addSIFactor(newFactor);
 	}
-	
-	public abstract int compareTo(SingleUnitProperty<Unit> o);
 }
