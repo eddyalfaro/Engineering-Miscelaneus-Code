@@ -123,4 +123,10 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 		return tempThis.compareTo(tempO);
 	}
 
+	public String toString() {
+		if (factor == null) {
+			return super.toString();
+		}
+		return String.format("%.3fsq.%s%s", value, factor.toString(), unit.getLengthUnit().toString());
+	}
 }
