@@ -38,11 +38,15 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		}
 	}
 	
+	public Unit getUnits() {
+		return unit;
+	}
+	
 	public String toString() {
 		if (factor != null) {
-			return String.format("%.3f%s%s", value, ((SIUnits) factor).toString(), unit.toString());
+			return String.format("%.3e %s%s", value, ((SIUnits) factor).toString(), unit.toString());
 		}
-		return String.format("%.3f%s", value, unit.toString());
+		return String.format("%.3e %s", value, unit.toString());
 	}
 	
 	public boolean hasSIFactor() {

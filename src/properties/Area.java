@@ -1,6 +1,7 @@
 package properties;
 
 import constants.AreaUnits;
+import constants.LenghtUnits;
 import constants.SIUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
@@ -127,6 +128,48 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 		if (factor == null) {
 			return super.toString();
 		}
-		return String.format("%.3fsq.%s%s", value, factor.toString(), unit.getLengthUnit().toString());
+		return String.format("%.3e sq.%s%s", value, factor.toString(), unit.getLengthUnit().toString());
+	}
+	
+	public static Area square(double sideA, LenghtUnits a, double sideB, LenghtUnits b) {
+		if (sideA < 0 || sideB < 0) {
+			return null;
+		}
+		
+		Area area = null;
+		
+		try {
+			sideB = b.changeUnits(sideB, a);
+			double value = sideA * sideB;
+			area = setAt(value, AreaUnits.getAreaUnit(a));
+		} catch (InvalidInputException e) {
+			return null;
+		} 
+		
+		return area;
+	}
+	
+	public static Area circle(double radious, LenghtUnits a) {
+		return null;
+	}
+	
+	public static Area circle(Lenght radious) {
+		return circle(radious.getValue(), radious.getUnits());
+	}
+	
+	public static Area triangle(double height, LenghtUnits h, double base, LenghtUnits b) {
+		return null;
+	}
+	
+	public static Area triangle(Lenght height, Lenght base) {
+		return triangle(height.getValue(), height.getUnits(), base.getValue(), base.getUnits());
+	}
+	
+	public static Area cilinder(double radious, LenghtUnits a, double height, LenghtUnits h) {
+		return null;
+	}
+	
+	public static Area cilinder(Lenght radious, Lenght height) {
+		return cilinder(radious.getValue(), radious.getUnits(), height.getValue(), height.getUnits());
 	}
 }
