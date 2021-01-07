@@ -73,7 +73,7 @@ public enum AreaUnits implements UnitChanger{
 		return PREFIX + unit.toString();
 	}
 	
-	public AreaUnits getISU() {
+	public static AreaUnits getISU() {
 		return SQMETER;
 	}
 	

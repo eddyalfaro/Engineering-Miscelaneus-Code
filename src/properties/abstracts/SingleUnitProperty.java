@@ -19,6 +19,11 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	protected static final int INPUT_EXCEPTION = -111;
 	protected static final int NULL_EXCEPTION = -222;
 	
+	protected static final String ERROR1 = "Negative value";
+	protected static final String ERROR2 = "Non-SIUnit";
+	protected static final String ERROR3 = "There is no SI Factor to remove";
+	protected static final String ERROR4 = "There is no SI Factor to replace";
+	
 	public SingleUnitProperty(double value, Unit unit) {
 		this.unit = unit;
 		this.value = value;
@@ -80,7 +85,7 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	 */
 	public void removeSIFactor() throws SIFactorException{
 		if (!hasSIFactor) {
-			throw new SIFactorException("There is no SI Factor to remove");
+			throw new SIFactorException(ERROR3);
 		}
 		
 		this.value = factor.removeSIFactor(value);
@@ -98,7 +103,7 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIException {
 		//TODO Check if the values within the reference change without updating the reference
 		if(!hasSIFactor) {
-			throw new SIFactorException("There is no SI Factor to replace");
+			throw new SIFactorException(ERROR4);
 		}
 		
 		removeSIFactor();

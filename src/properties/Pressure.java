@@ -9,8 +9,6 @@ import exceptions.SIFactorException;
 import properties.abstracts.SingleUnitProperty;
 
 public class Pressure extends SingleUnitProperty<PressureUnits>{	
-	
-	private static final String ERROR1 = "Negative pressure";
 			
 	private Pressure(double value, PressureUnits unit) {
 		super(value, unit);
@@ -47,21 +45,21 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 	
 	public void addSIFactor(SIUnits factor) throws SIFactorException {
 		if (!unit.isSI()) {
-			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+			throw new SIFactorException(ERROR2);
 		}
 		super.addSIFactor(factor);
 	}
 	
 	public void removeSIFactor() throws SIFactorException {
 		if (!unit.isSI()) {
-			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+			throw new SIFactorException(ERROR2);
 		}
 		super.removeSIFactor();
 	}
 	
 	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIException {
 		if (!unit.isSI()) {
-			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+			throw new SIFactorException(ERROR2);
 		}
 		super.replaceSIFactor(newFactor);
 	}
