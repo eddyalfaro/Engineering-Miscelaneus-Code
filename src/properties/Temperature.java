@@ -4,9 +4,9 @@ import constants.SIUnits;
 import constants.TemperatureUnits;
 import exceptions.InvalidInputException;
 import exceptions.SIFactorException;
-import properties.abstracts.SingleUnitProperty;
+import properties.abstracts.PropertyOne;
 
-public class Temperature extends SingleUnitProperty<TemperatureUnits>{
+public class Temperature extends PropertyOne<TemperatureUnits>{
 	
 	public static final Temperature OIL_SC_FARENHEIT = new Temperature(60.0, TemperatureUnits.FARENHEIT);
 	public static final Temperature STP_SC_FARENHEIT = new Temperature(32.0, TemperatureUnits.FARENHEIT);
@@ -70,7 +70,7 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 	}
 
 	@Override
-	public int compareTo(SingleUnitProperty<TemperatureUnits> o) {
+	public int compareTo(PropertyOne<TemperatureUnits> o) {
 		Double thisValue = this.getValue();
 		Double oValue = null;
 		int result;
@@ -85,6 +85,10 @@ public class Temperature extends SingleUnitProperty<TemperatureUnits>{
 		}
 		
 		return result;
+	}
+	
+	public String toString() {
+		return String.format("%.2f%s", value, unit.toString());
 	}
 
 }

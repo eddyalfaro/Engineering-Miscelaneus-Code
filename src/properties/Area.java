@@ -6,9 +6,9 @@ import constants.SIUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
-import properties.abstracts.SingleUnitProperty;
+import properties.abstracts.PropertyOne;
 
-public class Area extends SingleUnitProperty<AreaUnits>{
+public class Area extends PropertyOne<AreaUnits>{
 
 	private Area(double value, AreaUnits unit) {
 		super(value, unit);
@@ -103,7 +103,7 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 	}
 
 	@Override
-	public int compareTo(SingleUnitProperty<AreaUnits> o) {
+	public int compareTo(PropertyOne<AreaUnits> o) {
 		if (!(o instanceof Area)) {
 			return INPUT_EXCEPTION;
 		}
@@ -128,7 +128,7 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 		if (factor == null) {
 			return super.toString();
 		}
-		return String.format("%.3e sq.%s%s", value, factor.toString(), unit.getLengthUnit().toString());
+		return String.format("%.3e sq%s%s", value, factor.toString(), unit.getLengthUnit().toString());
 	}
 	
 	public static Area square(double sideA, LenghtUnits a, double sideB, LenghtUnits b) {
@@ -149,8 +149,24 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 		return area;
 	}
 	
+	public static Area square(Lenght sideA, Lenght sideB) {
+		return square(sideA.getValue(), sideA.getUnits(), sideB.getValue(), sideB.getUnits());
+	}
+	
 	public static Area circle(double radious, LenghtUnits a) {
-		return null;
+		if (radious < 0) {
+			return null;
+		}
+		Area area = null;
+		double value = Math.PI * Math.pow(radious, AreaUnits.LENGHT_DIMENSION_EXPONENT);
+		
+		try {
+			area = setAt(value, AreaUnits.getAreaUnit(a));
+		} catch (InvalidInputException e) {
+			return null;
+		}
+		
+		return area;
 	}
 	
 	public static Area circle(Lenght radious) {
@@ -158,7 +174,21 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 	}
 	
 	public static Area triangle(double height, LenghtUnits h, double base, LenghtUnits b) {
-		return null;
+		if (height < 0 || base < 0) {
+			return null;
+		}
+		
+		Area area = null;
+		
+		try {
+			base = b.changeUnits(base, h);
+			double value = 0.5 * height * base;
+			area = setAt(value, AreaUnits.getAreaUnit(h));
+		} catch (InvalidInputException e) {
+			e.printStackTrace();
+		}
+		
+		return area;
 	}
 	
 	public static Area triangle(Lenght height, Lenght base) {
@@ -166,7 +196,24 @@ public class Area extends SingleUnitProperty<AreaUnits>{
 	}
 	
 	public static Area cilinder(double radious, LenghtUnits a, double height, LenghtUnits h) {
-		return null;
+		Area circle = circle(radious, a);
+		double sideB = 2 * Math.PI * radious;
+		Area square = square(height, h, sideB, h);
+		
+		if (circle == null || square == null) {
+			return null;
+		}
+		
+		Area area = null;
+		
+		try {
+			double value = (2 * circle.getValue()) + square.getValueIn(circle.getUnits());
+			area = setAt(value, circle.getUnits());
+		} catch (InvalidInputException | SIFactorException e) {
+			e.printStackTrace();
+		}
+		
+		return area;
 	}
 	
 	public static Area cilinder(Lenght radious, Lenght height) {

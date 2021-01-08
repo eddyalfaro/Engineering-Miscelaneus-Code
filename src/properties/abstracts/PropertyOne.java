@@ -8,7 +8,7 @@ import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
 
-public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Comparable<SingleUnitProperty<Unit>>{
+public abstract class PropertyOne<Unit extends UnitChanger> implements Comparable<PropertyOne<Unit>>{
 	
 	protected Unit unit;
 	protected double value;
@@ -24,12 +24,12 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	protected static final String ERROR3 = "There is no SI Factor to remove";
 	protected static final String ERROR4 = "There is no SI Factor to replace";
 	
-	public SingleUnitProperty(double value, Unit unit) {
+	public PropertyOne(double value, Unit unit) {
 		this.unit = unit;
 		this.value = value;
 	}
 	
-	public SingleUnitProperty(double value, SIUnits factor, Unit unit) {
+	public PropertyOne(double value, SIUnits factor, Unit unit) {
 		this(value, unit);
 		this.factor = factor;
 		
@@ -64,13 +64,31 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 		return ((SIUnits) factor) + unit.toString();
 	}
 	
+	/**
+	 * Returns the value of this instace into the given units. The units the method is requesting have
+	 to correspond to valid units of the given property.
+	 * @param units unit value of the instance to which the method will be converting
+	 * @return the value of the property in the units used as an input
+	 * @throws InvalidInputException
+	 * @throws SIFactorException
+	 */
 	public abstract double getValueIn(Unit units) throws InvalidInputException, SIFactorException;
 	
-	public abstract SingleUnitProperty<Unit> changeUnits(Unit newUnits) throws InvalidInputException, SIFactorException;
+	/**
+	 * Creates a new instance of the property with the given specified unit as its base. The numerical value
+	   the original instance and the new instance are equivalent albeit in different units. The new unit has 
+	   have a compatible unit used by the property
+	 * @param newUnits unit the new instance will have
+	 * @return a new instance of the property with different units to the one it was called from.
+	 * @throws InvalidInputException
+	 * @throws SIFactorException
+	 */
+	public abstract PropertyOne<Unit> changeUnits(Unit newUnits) throws InvalidInputException, SIFactorException;
 	
 	/**
-	 * 
-	 * @param factor
+	 * Adds SI factor only to units valid within the international metric system. If the instance is not
+	   an international standard unit the method will return an Exception and fail to add a SI factor
+	 * @param factor Enum to add to the instance
 	 * @throws SIFactorException
 	 */
 	public void addSIFactor(SIUnits factor) throws SIFactorException{
@@ -84,7 +102,8 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	}
 	
 	/**
-	 * 
+	 * Similar to addSIFactor, this removes an SIFactor from the instance changing its value to its base
+	   value. The method will throw an error if the instance does not have a SI factor
 	 * @throws SIFactorException
 	 */
 	public void removeSIFactor() throws SIFactorException{
@@ -98,9 +117,12 @@ public abstract class SingleUnitProperty<Unit extends UnitChanger> implements Co
 	}
 	
 	/**
+	 * Replaces the SI factor that the instance currently has. The numerical value will change to the
+	   equivalent value with the new Factor. There wil be two exceptions thrown in this method. One if the
+	   give factor is not of SIUnit instance and the other if the instance does not contain a factor to 
+	   replace
 	 * 
-	 * 
-	 * @param newFactor
+	 * @param newFactor factor that will replace the factor within the instance
 	 * @throws SIFactorException
 	 * @throws NonSIException
 	 */

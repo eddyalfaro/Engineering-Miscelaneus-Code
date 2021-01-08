@@ -6,9 +6,9 @@ import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
 
-import properties.abstracts.SingleUnitProperty;
+import properties.abstracts.PropertyOne;
 
-public class Pressure extends SingleUnitProperty<PressureUnits>{	
+public class Pressure extends PropertyOne<PressureUnits>{	
 			
 	private Pressure(double value, PressureUnits unit) {
 		super(value, unit);
@@ -39,6 +39,9 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 	public static Pressure setAt(double value, SIUnits factor, PressureUnits unit) throws InvalidInputException {
 		if (value < 0) {
 			throw new InvalidInputException(ERROR1);
+		}
+		if (!(unit.isSI())) {
+			throw new InvalidInputException(ERROR2);
 		}
 		return new Pressure(value, factor, unit);	
 	}
@@ -87,7 +90,7 @@ public class Pressure extends SingleUnitProperty<PressureUnits>{
 	}
 
 	@Override
-	public int compareTo(SingleUnitProperty<PressureUnits> o) {
+	public int compareTo(PropertyOne<PressureUnits> o) {
 		Pressure temp1 = null;
 		Pressure temp2 = null;
 		Double value = null;

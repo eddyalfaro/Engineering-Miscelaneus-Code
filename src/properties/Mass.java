@@ -7,9 +7,9 @@ import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
 
-import properties.abstracts.SingleUnitProperty;
+import properties.abstracts.PropertyOne;
 
-public class Mass extends SingleUnitProperty<MassUnits>{
+public class Mass extends PropertyOne<MassUnits>{
 	
 	private static final String ERROR1 = "Use alternative method, Kilogram cannot have SI Factor";
 	private static final String ERROR2 = "Negative mass";
@@ -41,16 +41,15 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 		if (value < 0) {
 			throw new InvalidInputException(ERROR2);
 		}
-		if (isu != MassUnits.GRAM) {
-			throw new InvalidInputException("NonISU");
-		}
 		if (isu == MassUnits.KILOGRAM) {
 			throw new InvalidInputException(ERROR1);
+		}
+		if (isu != MassUnits.GRAM) {
+			throw new InvalidInputException("NonISU");
 		}
 		return new Mass(value, factor, isu);
 	}
 
-	//TODO test
 	public void addSIFactor(SIUnits factor) throws SIFactorException {
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
 			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
@@ -69,7 +68,7 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 		}
 	}
 	
-	//TODO test
+	
 	public void removeSIFactor() throws SIFactorException {
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
 			throw new SIFactorException("NonSIUnit");
@@ -90,7 +89,6 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 		}
 	}
 	
-	//TODO test
 	public void replaceSIFactor(SIUnits newFactor) throws SIFactorException, NonSIException {
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
 			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
@@ -128,7 +126,7 @@ public class Mass extends SingleUnitProperty<MassUnits>{
 	}
 
 	@Override
-	public int compareTo(SingleUnitProperty<MassUnits> o) {
+	public int compareTo(PropertyOne<MassUnits> o) {
 		Mass temp1 = null;
 		Mass temp2 = null;
 		Double value = null;

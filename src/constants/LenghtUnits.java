@@ -48,7 +48,7 @@ public enum LenghtUnits implements UnitChanger{
 		return isSI;
 	}
 	
-	public LenghtUnits getISU() {
+	public static LenghtUnits getISU() {
 		return METER;
 	}
 	
