@@ -30,7 +30,7 @@ class MassTest {
 	}
 
 	@Test
-	void testAddSIFactor() throws SIFactorException, InvalidInputException {
+	void testAddSIFactor() throws SIFactorException, InvalidInputException, NonSIException {
 		System.out.println("Test #" + testNum);
 		System.out.println(initial);
 		
@@ -115,7 +115,7 @@ class MassTest {
 	}
 
 	@Test
-	void testGetInSIUnitsDouble() throws InvalidInputException, SIFactorException {
+	void testGetInSIUnitsDouble() throws InvalidInputException, SIFactorException, NonSIException {
 		System.out.println("Test #" + testNum);
 		Mass temp = Mass.getInSIUnits(initialValue);
 		System.out.println(temp);

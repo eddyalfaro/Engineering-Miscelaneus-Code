@@ -97,21 +97,57 @@ public class Lenght extends PropertyOne<LenghtUnits> {
 
 	@Override
 	public int compareTo(PropertyOne<LenghtUnits> o) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (!(o instanceof Lenght)) {
+			return INPUT_EXCEPTION;
+		}
+		Double tempThis = null;
+		Double tempO = null;
+		
+		try {
+			tempThis = this.getValueIn(LenghtUnits.getISU());
+			tempO = o.getValueIn(LenghtUnits.getISU());
+		} catch (InvalidInputException | SIFactorException e) {
+			return INPUT_EXCEPTION;
+		} 
+		
+		if (tempO == null || tempThis == null) {
+			return NULL_EXCEPTION;
+		}
+		
+		return tempThis.compareTo(tempO);
 	}
 
 	@Override
 	public double getValueIn(LenghtUnits units) throws InvalidInputException, SIFactorException {
-		// TODO Auto-generated method stub
-		return 0;
+		//if (unit != LenghtUnits.getISU()) {
+			//return unit.changeUnits(value, units);
+		//}
+		
+		SIUnits temp = null;
+		if (factor != null) {
+			temp = (SIUnits) factor;
+			removeSIFactor();
+		}
+		
+		double val = unit.changeUnits(value, units);
+		
+		if (temp != null) {
+			try {
+				addSIFactor(temp);
+			} catch (NonSIException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return val;
 	}
 
 	@Override
 	public Lenght changeUnits(LenghtUnits newUnits)
 			throws InvalidInputException, SIFactorException {
-		// TODO Auto-generated method stub
-		return null;
+		double newValue = this.getValueIn(newUnits);
+		Lenght temp = Lenght.setAt(newValue, newUnits);		
+		return temp;
 	}
 
 }

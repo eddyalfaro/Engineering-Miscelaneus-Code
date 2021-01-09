@@ -46,9 +46,9 @@ public class Area extends PropertyOne<AreaUnits>{
 		return area.changeUnits(AreaUnits.getISU());
 	}
 	
-	public void addSIFactor(SIUnits factor) throws SIFactorException {
+	public void addSIFactor(SIUnits factor) throws SIFactorException, NonSIException {
 		if (!unit.isSI()) {
-			throw new SIFactorException(ERROR2);
+			throw new NonSIException(ERROR2);
 		}
 		this.hasSIFactor = true;
 		this.factor = factor;
@@ -90,7 +90,11 @@ public class Area extends PropertyOne<AreaUnits>{
 		double result = super.unit.changeUnits(getValue(), units);
 		
 		if (temp != null) {
-			addSIFactor(temp);	
+			try {
+				addSIFactor(temp);
+			} catch (NonSIException e) {
+				e.printStackTrace();
+			}	
 		}
 		
 		return result;
