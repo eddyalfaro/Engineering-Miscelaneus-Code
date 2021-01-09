@@ -50,9 +50,9 @@ public class Mass extends PropertyOne<MassUnits>{
 		return new Mass(value, factor, isu);
 	}
 
-	public void addSIFactor(SIUnits factor) throws SIFactorException {
+	public void addSIFactor(SIUnits factor) throws SIFactorException, NonSIException {
 		if (!(unit == MassUnits.KILOGRAM || unit == MassUnits.GRAM)) {
-			throw new SIFactorException("Factor cannot be added to non IS Unit " + unit);
+			throw new NonSIException(ERROR2);
 		}
 		if (unit == MassUnits.GRAM && factor == SIUnits.KILO) {
 			try {
@@ -112,7 +112,11 @@ public class Mass extends PropertyOne<MassUnits>{
 		double result = super.unit.changeUnits(getValue(), units);
 		
 		if (temp != null) {
-			addSIFactor(temp);	
+			try {
+				addSIFactor(temp);
+			} catch (NonSIException e) {
+				e.printStackTrace();
+			}	
 		}
 		
 		return result;

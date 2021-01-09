@@ -172,7 +172,7 @@ class PressureTest {
 	}
 
 	@Test
-	void testAddSIFactor() throws SIFactorException, InvalidInputException {
+	void testAddSIFactor() throws SIFactorException, InvalidInputException, NonSIException {
 		System.out.println("Test #" + testNum);
 		System.out.println(initial);
 		
@@ -186,7 +186,7 @@ class PressureTest {
 	}
 
 	@Test
-	void testRemoveSIFactor() throws SIFactorException {
+	void testRemoveSIFactor() throws SIFactorException, NonSIException {
 		System.out.println("Test #" + testNum);
 		System.out.println(initial);
 		

@@ -23,6 +23,7 @@ public abstract class PropertyOne<Unit extends UnitChanger> implements Comparabl
 	protected static final String ERROR2 = "Non-SIUnit";
 	protected static final String ERROR3 = "There is no SI Factor to remove";
 	protected static final String ERROR4 = "There is no SI Factor to replace";
+	protected static final String ERROR5 = "Units already contains a SI factor";
 	
 	public PropertyOne(double value, Unit unit) {
 		this.unit = unit;
@@ -90,8 +91,9 @@ public abstract class PropertyOne<Unit extends UnitChanger> implements Comparabl
 	   an international standard unit the method will return an Exception and fail to add a SI factor
 	 * @param factor Enum to add to the instance
 	 * @throws SIFactorException
+	 * @throws NonSIException 
 	 */
-	public void addSIFactor(SIUnits factor) throws SIFactorException{
+	public void addSIFactor(SIUnits factor) throws SIFactorException, NonSIException{
 		if (hasSIFactor) {
 			throw new SIFactorException("Units already contains a SI factor: " + this.toString());
 		}

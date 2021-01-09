@@ -3,6 +3,7 @@ package properties;
 import constants.LenghtUnits;
 import constants.SIUnits;
 import exceptions.InvalidInputException;
+import exceptions.NonSIException;
 import exceptions.SIFactorException;
 import properties.abstracts.PropertyOne;
 
@@ -56,16 +57,42 @@ public class Lenght extends PropertyOne<LenghtUnits> {
 		return o.changeUnits(LenghtUnits.getISU());
 	}
 	
-	public void addSIFactor(SIUnits factor) {
-		
+	public void addSIFactor(SIUnits factor) throws NonSIException, SIFactorException {
+		if (!(unit == LenghtUnits.CENTIMETER || unit == LenghtUnits.METER)) {
+			throw new NonSIException(ERROR2);
+		}
+		super.addSIFactor(factor);
 	}
 	
-	public void removeSIFactor() {
+	public void removeSIFactor() throws SIFactorException {
+		if (!hasSIFactor) {
+			throw new SIFactorException(ERROR3);
+		}
 		
+		if (unit == LenghtUnits.CENTIMETER) {
+			try {
+				value = unit.changeUnits(value, LenghtUnits.METER);
+				unit = LenghtUnits.METER;
+				hasSIFactor = false;
+				return;
+			} catch (InvalidInputException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		super.removeSIFactor();
 	}
 	
-	public void replaceSIFactor(SIUnits newFactor) {
+	public void replaceSIFactor(SIUnits newFactor) throws NonSIException, SIFactorException {
+		if (!(unit == LenghtUnits.CENTIMETER || unit == LenghtUnits.METER)) {
+			throw new NonSIException(ERROR2);
+		}
+		if (!hasSIFactor) {
+			throw new SIFactorException(ERROR4);
+		}
 		
+		removeSIFactor();
+		addSIFactor(newFactor);
 	}
 
 	@Override

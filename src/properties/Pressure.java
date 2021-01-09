@@ -46,9 +46,9 @@ public class Pressure extends PropertyOne<PressureUnits>{
 		return new Pressure(value, factor, unit);	
 	}
 	
-	public void addSIFactor(SIUnits factor) throws SIFactorException {
+	public void addSIFactor(SIUnits factor) throws SIFactorException, NonSIException {
 		if (!unit.isSI()) {
-			throw new SIFactorException(ERROR2);
+			throw new NonSIException(ERROR2);
 		}
 		super.addSIFactor(factor);
 	}
@@ -83,7 +83,11 @@ public class Pressure extends PropertyOne<PressureUnits>{
 		double result = super.unit.changeUnits(getValue(), units);
 		
 		if (temp != null) {
-			addSIFactor(temp);	
+			try {
+				addSIFactor(temp);
+			} catch (NonSIException e) {
+				e.printStackTrace();
+			}	
 		}
 		
 		return result;
