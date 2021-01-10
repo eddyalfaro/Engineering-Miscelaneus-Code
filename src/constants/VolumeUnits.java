@@ -68,7 +68,7 @@ public enum VolumeUnits implements UnitChanger{
 		return PREFIX + lenght.toString();
 	}
 	
-	public VolumeUnits getISU() {
+	public static VolumeUnits getISU() {
 		return CUBICMETER;
 	}
 	
