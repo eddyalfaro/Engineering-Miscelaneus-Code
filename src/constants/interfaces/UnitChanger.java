@@ -18,4 +18,10 @@ public interface UnitChanger{
 	 */
 	public <E extends Enum<E>> double changeUnits(Double value, E to) throws InvalidInputException;
 	
+	/**
+	 * indicates wether or not the unit is the standarized unit in the international metric system
+	 * @return true if it is, false if it is not.
+	 */
+	public boolean isSI();
+	
 }

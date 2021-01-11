@@ -127,4 +127,10 @@ public class Volume extends PropertyOne<VolumeUnits>{
 		return setAt(tempVal, newUnits);
 	}
 
+	public String toString() {
+		if (factor == null) {
+			return super.toString();
+		}
+		return String.format("%.3e %s%s^%d", value, factor.toString(), unit.getLengthUnit().toString(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
+	}
 }

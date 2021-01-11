@@ -132,7 +132,7 @@ public class Area extends PropertyOne<AreaUnits>{
 		if (factor == null) {
 			return super.toString();
 		}
-		return String.format("%.3e sq%s%s", value, factor.toString(), unit.getLengthUnit().toString());
+		return String.format("%.3e %s%s^%d", value, factor.toString(), unit.getLengthUnit().toString(), AreaUnits.LENGHT_DIMENSION_EXPONENT);
 	}
 	
 	public static Area square(double sideA, LenghtUnits a, double sideB, LenghtUnits b) {
