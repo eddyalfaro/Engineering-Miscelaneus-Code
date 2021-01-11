@@ -1,4 +1,4 @@
-package interfaces;
+package properties.interfaces;
 
 import constants.interfaces.UnitChanger;
 import properties.abstracts.PropertyOne;

@@ -1,4 +1,4 @@
-package interfaces;
+package properties.interfaces;
 
 import constants.SIUnits;
 import constants.interfaces.UnitChanger;

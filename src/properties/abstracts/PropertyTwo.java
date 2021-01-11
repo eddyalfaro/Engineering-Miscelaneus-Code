@@ -2,7 +2,7 @@ package properties.abstracts;
 
 import constants.SIUnits;
 import constants.interfaces.UnitChanger;
-import interfaces.PropertySetter;
+import properties.interfaces.PropertySetter;
 
 public abstract class PropertyTwo<T1 extends UnitChanger, T2 extends UnitChanger> 
 implements Comparable<PropertyTwo<T1 , T2 >>, PropertySetter<T1, T2>{
