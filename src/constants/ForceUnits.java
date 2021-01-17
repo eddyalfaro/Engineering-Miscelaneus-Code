@@ -73,7 +73,7 @@ public enum ForceUnits implements UnitChanger{
 		return symbol;
 	}
 	
-	public ForceUnits getISU() {
+	public static ForceUnits getISU() {
 		return NEWTON;
 	}
 	

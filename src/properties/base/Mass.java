@@ -1,4 +1,4 @@
-package properties;
+package properties.base;
 
 import constants.MassUnits;
 import constants.SIUnits;
@@ -6,8 +6,7 @@ import constants.SIUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
-
-import properties.abstracts.PropertyOne;
+import properties.PropertyOne;
 
 public class Mass extends PropertyOne<MassUnits>{
 	

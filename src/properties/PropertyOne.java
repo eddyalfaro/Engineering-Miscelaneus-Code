@@ -1,4 +1,4 @@
-package properties.abstracts;
+package properties;
 
 import constants.SIUnits;
 import constants.interfaces.SIFactor;
@@ -94,6 +94,9 @@ public abstract class PropertyOne<Unit extends UnitChanger> implements Comparabl
 	 * @throws NonSIException 
 	 */
 	public void addSIFactor(SIUnits factor) throws SIFactorException, NonSIException{
+		if (!unit.isSI()) {
+			throw new NonSIException(ERROR2);
+		}
 		if (hasSIFactor) {
 			throw new SIFactorException("Units already contains a SI factor: " + this.toString());
 		}

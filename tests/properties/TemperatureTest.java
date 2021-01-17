@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import constants.TemperatureUnits;
 import exceptions.InvalidInputException;
+import properties.base.Temperature;
 
 class TemperatureTest {
 

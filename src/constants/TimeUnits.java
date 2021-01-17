@@ -38,7 +38,7 @@ public enum TimeUnits implements UnitChanger{
 		this.isSI = isSI;
 	}
 	
-	public TimeUnits getISU() {
+	public static TimeUnits getISU() {
 		return SECONDS;
 	}
 	

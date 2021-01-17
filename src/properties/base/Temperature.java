@@ -1,10 +1,10 @@
-package properties;
+package properties.base;
 
 import constants.SIUnits;
 import constants.TemperatureUnits;
 import exceptions.InvalidInputException;
 import exceptions.SIFactorException;
-import properties.abstracts.PropertyOne;
+import properties.PropertyOne;
 
 public class Temperature extends PropertyOne<TemperatureUnits>{
 	

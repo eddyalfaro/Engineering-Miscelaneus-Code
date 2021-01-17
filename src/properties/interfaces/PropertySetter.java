@@ -5,6 +5,7 @@ import constants.interfaces.UnitChanger;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
+import properties.PropertyTwo;
 
 public interface PropertySetter<T1 extends UnitChanger, T2 extends UnitChanger> 
 extends DerivedProperty<T1, T2>{
@@ -16,7 +17,7 @@ extends DerivedProperty<T1, T2>{
 	 * @param unit2
 	 * @throws InvalidInputException
 	 */
-	public void setAt(double value, T1 unit1, T2 unit2) throws InvalidInputException;
+	public PropertyTwo<T1,T2> setAt(double value, T1 unit1, T2 unit2) throws InvalidInputException;
 	
 	/**
 	 * sets the instance with the given value and units, this method is only usable with standarized 
@@ -30,7 +31,7 @@ extends DerivedProperty<T1, T2>{
 	 * @throws NonSIException
 	 * @throws SIFactorException
 	 */
-	public void setAt(double value, T1 unit1, T2 unit2, SIUnits factor1, SIUnits factor2)
+	public PropertyTwo<T1,T2> setAt(double value, T1 unit1, T2 unit2, SIUnits factor1, SIUnits factor2)
 	throws InvalidInputException, NonSIException, SIFactorException;
 	
 	/**
@@ -38,7 +39,7 @@ extends DerivedProperty<T1, T2>{
 	 * @param value
 	 * @throws InvalidInputException
 	 */
-	public void set(double value) throws InvalidInputException;
+	public PropertyTwo<T1,T2> setAt(double value) throws InvalidInputException;
 	
 	/**
 	 * sets an instance for each property within the instance. These properties are used to change units of the 
@@ -46,4 +47,5 @@ extends DerivedProperty<T1, T2>{
 	 */
 	public void setProperties();
 
+		
 }

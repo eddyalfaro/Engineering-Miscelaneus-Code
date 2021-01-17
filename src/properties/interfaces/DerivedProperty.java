@@ -1,8 +1,8 @@
 package properties.interfaces;
 
 import constants.interfaces.UnitChanger;
-import properties.abstracts.PropertyOne;
-import properties.abstracts.PropertyTwo;
+import properties.PropertyOne;
+import properties.PropertyTwo;
 
 public interface DerivedProperty <T1 extends UnitChanger, T2 extends UnitChanger> {
 		

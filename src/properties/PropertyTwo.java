@@ -1,4 +1,4 @@
-package properties.abstracts;
+package properties;
 
 import constants.SIUnits;
 import constants.interfaces.UnitChanger;
