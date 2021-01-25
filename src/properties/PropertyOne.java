@@ -43,6 +43,10 @@ public abstract class PropertyOne<Unit extends UnitChanger> implements Comparabl
 		return unit;
 	}
 	
+	public SIFactor getFactor() {
+		return factor;
+	}
+	
 	public String toString() {
 		if (factor != null) {
 			return String.format("%.3e %s%s", value, ((SIUnits) factor).toString(), unit.toString());

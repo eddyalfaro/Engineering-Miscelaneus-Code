@@ -2,6 +2,8 @@ package properties;
 
 import constants.SIUnits;
 import constants.interfaces.UnitChanger;
+import exceptions.NonSIException;
+import exceptions.SIFactorException;
 import properties.interfaces.PropertySetter;
 
 public abstract class PropertyTwo<T1 extends UnitChanger, T2 extends UnitChanger> 
@@ -16,6 +18,12 @@ implements Comparable<PropertyTwo<T1 , T2 >>, PropertySetter<T1, T2>{
 	protected PropertyOne<T2> property2 = null;
 	
 	private double value;
+	
+	protected static final String ERROR1 = "Negative value";
+	protected static final String ERROR2 = "Non-SIUnit";
+	protected static final String ERROR3 = "There is no SI Factor to remove";
+	protected static final String ERROR4 = "There is no SI Factor to replace";
+	protected static final String ERROR5 = "Units already contains a SI factor";
 	
 	public PropertyTwo() {
 		
@@ -75,15 +83,36 @@ implements Comparable<PropertyTwo<T1 , T2 >>, PropertySetter<T1, T2>{
 
 	public abstract double getValueIn(T1 unit1, T2 unit2);
 	
-	public abstract void addSIFactor(SIUnits factor, boolean unit1, boolean unit2);
+	public void addSIFactor(SIUnits factor, boolean unit1, boolean unit2) throws SIFactorException, NonSIException {
+		if (unit1) {
+			property1.addSIFactor(factor);
+			factor1 = factor;
+		}
+		
+		if (unit2) {
+			property2.addSIFactor(factor);
+			factor2 = factor;
+		}
+	}
 	
-	public abstract void removeSIFactor(boolean unit1, boolean unit2);
+	public void removeSIFactor(boolean unit1, boolean unit2) throws SIFactorException {
+		if (unit1) {
+			property1.removeSIFactor();
+			factor1 = null;
+		}
+		
+		if (unit2) {
+			property2.removeSIFactor();
+			factor2 = null;
+		}
+	}
 	
-	public abstract void replaceSIFactor(SIUnits factor, boolean unit1, boolean unit2);
+	public void replaceSIFactor(SIUnits factor, boolean unit1, boolean unit2) throws SIFactorException, NonSIException {
+		removeSIFactor(unit1, unit2);
+		addSIFactor(factor, unit1, unit2);
+	}
 	
 	public abstract String toString();
 	
 	public abstract PropertyTwo<T1, T2> getIn(T1 unit1, T2 unit2);
-	
-	
 }

@@ -11,8 +11,8 @@ import properties.PropertyTwo;
 
 public class Acceleration extends PropertyTwo<LenghtUnits, TimeUnits>{
 	
-	public static final Acceleration SETTER = new Acceleration();
-	private static final int TIME_DIMENSION_EXPONENT = 2;	
+	public static final Acceleration ACCELERATION = new Acceleration();
+	public static final int TIME_DIMENSION_EXPONENT = 2;	
 	public static final Acceleration EARTH_GRAVITY = new Acceleration(9.780327, LenghtUnits.METER, TimeUnits.SECONDS);
 		
 	private Acceleration() {
@@ -31,7 +31,11 @@ public class Acceleration extends PropertyTwo<LenghtUnits, TimeUnits>{
 
 	@Override
 	public Acceleration setAt(double value, LenghtUnits unit1, TimeUnits unit2) throws InvalidInputException {
-		return null;
+		if (value < 0) {
+			throw new InvalidInputException(ERROR1);
+		}
+		
+		return new Acceleration(value, unit1, unit2);
 	}
 
 	@Override

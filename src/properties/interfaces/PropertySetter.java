@@ -44,8 +44,10 @@ extends DerivedProperty<T1, T2>{
 	/**
 	 * sets an instance for each property within the instance. These properties are used to change units of the 
 	   property instance
+	 * @throws InvalidInputException 
+	 * @throws SIFactorException 
 	 */
-	public void setProperties();
+	public void setProperties() throws InvalidInputException, SIFactorException;
 
 		
 }

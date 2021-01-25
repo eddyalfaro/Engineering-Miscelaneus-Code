@@ -136,6 +136,10 @@ public class Volume extends PropertyOne<VolumeUnits>{
 		return String.format("%.3e %s%s^%d", value, factor.toString(), unit.getLengthUnit().toString(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
 	}
 	
+	public String printUnits() {
+		return String.format("%s^%d", super.printUnits(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
+	}
+	
 	public static Volume cilinder(Lenght radious, Lenght height) {
 		return cilinder(radious.getValue(), height.getValue(), radious.getUnits(), height.getUnits());
 	}
