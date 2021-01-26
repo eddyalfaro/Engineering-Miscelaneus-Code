@@ -115,7 +115,6 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 
 	@Override
 	public double getValueIn(MassUnits unit1, VolumeUnits unit2) {
-		double value = getValue();
 		
 		SIUnits factor1 = getFactor1();
 		SIUnits factor2 = getFactor2();
@@ -135,6 +134,8 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 				e.printStackTrace();
 			}
 		}
+		
+		double value = getValue();
 		
 		try {// caluclating the value in the parameter units
 			value = this.getUnit1().changeUnits(value, unit1);
@@ -177,6 +178,17 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		
 		double value = property1.getValue() / property2.getValue();
 		this.setValue(value);
+		
+		if(unit1 && this.getUnit1() == MassUnits.KILOGRAM) {
+			this.setUnit1(MassUnits.GRAM);
+		}
+		
+		try {
+			this.setProperties();
+		} catch (InvalidInputException | SIFactorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public enum VolumeUnits implements UnitChanger{
 	CUBICINCHES(LenghtUnits.INCH, false),
 	CUBICYARD(LenghtUnits.YARD, false),
 	CUBICMILE(LenghtUnits.MILE, false),
-	LITER("L", 0.035314667, false),
+	LITER("L", 0.035314667, true),
 	US_GALLON("Gal", 0.13368056, false),
 	OIL_BARREL("Bbl", 5.6145833, false),
 	IMPERIAL_GALLON("Imp. gal", 0.16054365, false),

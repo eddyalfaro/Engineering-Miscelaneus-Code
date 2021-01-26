@@ -51,6 +51,10 @@ public class Volume extends PropertyOne<VolumeUnits>{
 		if (!unit.isSI()) {
 			throw new NonSIException(ERROR2);
 		}
+		if (unit == VolumeUnits.LITER) {
+			super.addSIFactor(factor);
+			return;
+		}
 		this.hasSIFactor = true;
 		this.factor = factor;
 		
@@ -63,6 +67,10 @@ public class Volume extends PropertyOne<VolumeUnits>{
 		}
 		if (!hasSIFactor) {
 			throw new SIFactorException(ERROR3);
+		}
+		if (unit == VolumeUnits.LITER) {
+			super.removeSIFactor();
+			return;
 		}
 		hasSIFactor = false;
 		value = factor.removeSIFactor(value, VolumeUnits.LENGHT_DIMENSION_EXPONENT);
@@ -137,7 +145,17 @@ public class Volume extends PropertyOne<VolumeUnits>{
 	}
 	
 	public String printUnits() {
-		return String.format("%s^%d", super.printUnits(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
+		if (factor != null && unit.getLengthUnit() != null) {
+			return String.format("%s%s^%d", factor.toString(), unit.getLengthUnit().toString(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
+		}
+		if (factor != null) {
+			return String.format("%s%s", factor.toString(), unit.toString());
+		}
+		if (unit.getLengthUnit() != null) {
+			return String.format("%s^%d", unit.getLengthUnit().toString(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
+		}
+		
+		return String.format("%s", unit.toString());
 	}
 	
 	public static Volume cilinder(Lenght radious, Lenght height) {
