@@ -19,6 +19,8 @@ public abstract class PropertyOne<Unit extends UnitChanger> implements Comparabl
 	protected static final int INPUT_EXCEPTION = -111;
 	protected static final int NULL_EXCEPTION = -222;
 	
+	protected static final double DELTA = 1e-4;
+	
 	protected static final String ERROR1 = "Negative value";
 	protected static final String ERROR2 = "Non-SIUnit";
 	protected static final String ERROR3 = "There is no SI Factor to remove";

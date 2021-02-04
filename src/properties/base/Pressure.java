@@ -8,6 +8,8 @@ import exceptions.SIFactorException;
 import properties.PropertyOne;
 
 public class Pressure extends PropertyOne<PressureUnits>{	
+	
+	public final static Pressure STANDARD = new Pressure(101.3, SIUnits.KILO, PressureUnits.PASCAL);
 			
 	private Pressure(double value, PressureUnits unit) {
 		super(value, unit);
@@ -108,6 +110,11 @@ public class Pressure extends PropertyOne<PressureUnits>{
 			temp2 = getInSIUnits((Pressure) o);
 			value = temp1.getValue();
 			result = value.compareTo(temp2.getValue());
+			
+			if (Math.abs(value - temp2.value) < DELTA) {//stablishing a degree of sensibility
+				return 0;
+			}
+			
 		} catch (InvalidInputException | SIFactorException e) {
 			return INPUT_EXCEPTION;
 		} catch (NullPointerException e) {

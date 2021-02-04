@@ -19,6 +19,8 @@ implements Comparable<PropertyTwo<T1 , T2 >>, PropertySetter<T1, T2>{
 	
 	private double value;
 	
+	protected static final double DELTA = 1e-4;
+	
 	protected static final String ERROR1 = "Negative value";
 	protected static final String ERROR2 = "Non-SIUnit";
 	protected static final String ERROR3 = "There is no SI Factor to remove";

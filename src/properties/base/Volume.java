@@ -141,6 +141,9 @@ public class Volume extends PropertyOne<VolumeUnits>{
 		if (factor == null) {
 			return super.toString();
 		}
+		if (unit == VolumeUnits.LITER) {
+			return String.format("%.3e %s%s", value, factor.toString(), unit);
+		}
 		return String.format("%.3e %s%s^%d", value, factor.toString(), unit.getLengthUnit().toString(), VolumeUnits.LENGHT_DIMENSION_EXPONENT);
 	}
 	

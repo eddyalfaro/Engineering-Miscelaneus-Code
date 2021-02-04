@@ -1,20 +1,21 @@
-package properties.derived;
+package properties.base.derived;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import constants.AreaUnits;
 import constants.MassUnits;
 import constants.SIUnits;
 import constants.VolumeUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
-import properties.base.Area;
 import properties.base.Mass;
+import properties.base.Pressure;
+import properties.base.Temperature;
 import properties.base.Volume;
+import properties.derived.Density;
 
 class DensityTest {
 	
@@ -28,6 +29,8 @@ class DensityTest {
 		testNum++;
 		initialValue = 1000;
 		initial = Density.DENSITY.setAt(initialValue);
+		initial.atPressure(Pressure.STANDARD);
+		initial.atTemperature(Temperature.STP_SC_FARENHEIT.getInSIUnits());
 	}
 
 	@Test
@@ -70,6 +73,9 @@ class DensityTest {
 		Volume b = Volume.setAt(113.25, VolumeUnits.US_GALLON);
 		
 		initial = Density.DENSITY.calculate(a, b);
+		initial.atPressure(Pressure.STANDARD);
+		initial.atTemperature(Temperature.STP_SC_FARENHEIT.getInSIUnits());
+		
 		System.out.println(initial);
 		
 		initial = Density.DENSITY.setAt(12, MassUnits.GRAM, VolumeUnits.CUBICMETER, SIUnits.KILO, SIUnits.CENTI);
@@ -77,6 +83,10 @@ class DensityTest {
 		
 		initial.removeSIFactor(true, true);
 		System.out.println(initial);
+		
+		initial = Density.DENSITY.setAt(1000);
+		System.out.println(initial.compareTo(Density.DENSITY.setAt(8.345404, MassUnits.POUND, VolumeUnits.US_GALLON)));
+		
 	}
 
 	@Test

@@ -26,7 +26,7 @@ public enum VolumeUnits implements UnitChanger{
 	public static final int MOLE_DIMENSION_EXPONENT = 0;
 	public static final int LUMINOUSITY_DIMENSION_EXPONENT = 0;
 	
-	private static final String PREFIX = "c.";
+	private static final String SUFIX = "^3";
 	
 	private String symbol;
 	private LenghtUnits lenght = null;
@@ -65,7 +65,7 @@ public enum VolumeUnits implements UnitChanger{
 			return symbol;
 		}
 		
-		return PREFIX + lenght.toString();
+		return lenght.toString() + SUFIX;
 	}
 	
 	public static VolumeUnits getISU() {

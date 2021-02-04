@@ -1,4 +1,4 @@
-package properties;
+package properties.base;
 
 import static org.junit.jupiter.api.Assertions.*;
 

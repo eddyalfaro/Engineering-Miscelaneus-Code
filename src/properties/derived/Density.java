@@ -43,7 +43,15 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 	@Override
 	public int compareTo(PropertyTwo<MassUnits, VolumeUnits> o) {
 		Double thisVal = this.getValueIn(MassUnits.getISU(), VolumeUnits.getISU());
-		Double oVal = o.getValueIn(MassUnits.getISU(), VolumeUnits.getISU());		
+		Double oVal = o.getValueIn(MassUnits.getISU(), VolumeUnits.getISU());
+		
+		double res = thisVal - oVal;
+		res = Math.abs(res);
+		
+		if (res < DELTA) {
+			return 0;
+		}
+		
 		return thisVal.compareTo(oVal);
 	}
 
@@ -196,7 +204,7 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		if (pressure == null && temperature == null) {
 			return String.format("%.3e %s/%s", getValue(), property1.printUnits(), property2.printUnits());
 		}
-		return String.format("%.3e %s/%s at %s & %s", getValue(), property1.printUnits(), property2.printUnits(), pressure.toString(), temperature.toString());
+		return String.format("%.3e %s/%-3s \t Pressure:%s \t Temperature:%s", getValue(), property1.printUnits(), property2.printUnits(), pressure.toString(), temperature.toString());
 	}
 
 	@Override
@@ -206,9 +214,11 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		try {
 			temp = DENSITY.setAt(value, unit1, unit2);
 		} catch (InvalidInputException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		temp.atPressure(pressure);
+		temp.atTemperature(temperature);
 		return temp;
 	}
 
