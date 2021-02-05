@@ -11,6 +11,8 @@ import constants.TimeUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
+import properties.base.Mass;
+import properties.base.Time;
 
 class MassRateTest {
 
@@ -82,8 +84,36 @@ class MassRateTest {
 	}
 
 	@Test
-	void testAddSIFactor() {
-		fail("Not yet implemented"); // TODO
+	void testAddSIFactor() throws InvalidInputException, SIFactorException, NonSIException {
+		System.out.println("Test #" + testNum + " :: Adding SIFactors");
+		
+		double value = 0.04;
+		MassRate test1 = MassRate.MASS_RATE.setAt(value);
+		System.out.print(test1 + " == ");
+		
+		test1.addSIFactor(SIUnits.MILI, false, true);
+		System.out.print("" + test1 + '\n' +  test1 + " == ");
+		assertTrue(SIUnits.MILI == test1.getFactor2());
+		assertEquals(4e-5, test1.getValue(), delta);
+		System.out.print("" + test1 + '\n' +  test1 + " == ");
+		
+		test1.removeSIFactor(true, false);
+		System.out.print("" + test1 + '\n' +  test1 + " == ");
+		
+		test1.addSIFactor(SIUnits.MEGA, true, false);
+		assertTrue(SIUnits.MEGA == test1.getFactor1());
+		assertEquals(4e-8, test1.getValue(), delta);
+		System.out.print("" + test1 + '\n' +  test1 + " == ");
+		
+		test1.removeSIFactor(false, true);
+		System.out.print("" + test1 + '\n' +  test1 + " == ");
+		
+		test1.addSIFactor(SIUnits.HECTO, false, true);
+		assertTrue(SIUnits.HECTO == test1.getFactor2());
+		assertEquals(4e-3, test1.getValue(), delta);
+		System.out.print("" + test1 + '\n');
+		
+		System.out.println();
 	}
 
 	@Test
@@ -184,15 +214,28 @@ class MassRateTest {
 	}
 
 	@Test
-	void testCalculate() {
-		fail("Not yet implemented"); // TODO
+	void testCalculate() throws InvalidInputException, NonSIException {
+		System.out.println("Test #" + testNum + " :: Calculating rate from mass and time values");
+		
+		Mass mass = Mass.setAt(0.55, SIUnits.MILI, MassUnits.GRAM);
+		Time time = Time.setAt(0.025, SIUnits.CENTI, TimeUnits.SECONDS);
+		
+		MassRate rate = MassRate.MASS_RATE.calculate(mass, time);
+		
+		assertTrue(SIUnits.MILI == rate.getFactor1());
+		assertTrue(SIUnits.CENTI == rate.getFactor2());
+		assertTrue(TimeUnits.SECONDS == rate.getUnit2());
+		assertTrue(MassUnits.GRAM == rate.getUnit1());
+		assertEquals(22.0, rate.getValue(), delta);
+		System.out.println(rate);
+		
+		System.out.println();
 	}
 
 	@Test
 	void testGetValueInT1TimeUnits() throws InvalidInputException, NonSIException, SIFactorException {
 		System.out.println("Test #" + testNum + " :: Get value in different units");
 		
-		SIUnits factor1 = SIUnits.MILI;
 		SIUnits factor2 = SIUnits.MILI;
 		
 		MassUnits unit1 = MassUnits.KILOGRAM;
