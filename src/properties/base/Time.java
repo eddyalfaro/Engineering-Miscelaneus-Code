@@ -29,7 +29,7 @@ public class Time extends PropertyOne<TimeUnits>{
 		
 		try {
 			temp = setAt(value, SIUnits.MILI, TimeUnits.SECONDS);
-		} catch (SIFactorException e) {
+		} catch (NonSIException e) {
 			e.printStackTrace();
 		}
 		
@@ -41,19 +41,19 @@ public class Time extends PropertyOne<TimeUnits>{
 		
 		try {
 			temp = setAt(value, SIUnits.NANO, TimeUnits.SECONDS);
-		} catch (SIFactorException e) {
+		} catch (NonSIException e) {
 			e.printStackTrace();
 		}
 		
 		return temp;
 	}
 	
-	public static Time setAt(double value, SIUnits factor, TimeUnits unit) throws InvalidInputException, SIFactorException {
+	public static Time setAt(double value, SIUnits factor, TimeUnits unit) throws InvalidInputException, NonSIException {
 		if (value < 0) {
 			throw new InvalidInputException(ERROR1);
 		}
 		if (!(unit.isSI())){
-			throw new SIFactorException(ERROR2);
+			throw new NonSIException(ERROR2);
 		}
 		return new Time(value, factor, unit);
 	}

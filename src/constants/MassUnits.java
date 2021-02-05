@@ -8,7 +8,7 @@ import exceptions.InvalidInputException;
 
 public enum MassUnits implements UnitChanger{
 	
-	GRAM ("g", false),
+	GRAM ("g", true),
 	KILOGRAM(GRAM, SIUnits.KILO, true),
 	POUND ("lb", false),
 	SLUG ("sl", false),

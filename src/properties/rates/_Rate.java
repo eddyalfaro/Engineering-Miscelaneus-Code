@@ -6,11 +6,10 @@ import constants.interfaces.UnitChanger;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
-import properties.PropertyOne;
 import properties.PropertyTwo;
 import properties.base.Time;
 
-public class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
+public abstract class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
 	
 	protected _Rate() {
 		super();
@@ -39,66 +38,19 @@ public class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
 		return val.compareTo(oVal);
 	}
 
-	@Override
-	public _Rate<T1> setAt(double value, T1 unit1, TimeUnits unit2) throws InvalidInputException {
-		if (value < 0) {
-			throw new InvalidInputException(ERROR1);
-		}
-		
-		_Rate<T1> temp = new _Rate<T1>(value, unit1, unit2);
-		
-		try {
-			temp.setProperties();
-		} catch (SIFactorException e) {
-			e.printStackTrace();
-		}
-		
-		return temp;
-	}
 
 	@Override
-	public _Rate<T1> setAt(double value, T1 unit1, TimeUnits unit2, SIUnits factor1, SIUnits factor2)
-			throws InvalidInputException, NonSIException, SIFactorException {
-		if (value < 0) {
-			throw new InvalidInputException(ERROR1);
-		}
-		
-		_Rate<T1> temp = new _Rate<T1>(value, unit1, unit2, factor1, factor2);
-		temp.setProperties();
-		
-		return temp;
-	}
-
-	@Override
-	public void setProperties() throws InvalidInputException, SIFactorException {		
+	public void setProperties() throws InvalidInputException, NonSIException {		
 		if (getFactor2() == null) {
 			this.property2 = Time.setAt(1.0, getUnit2());
 		}else {
 			this.property2 = Time.setAt(1.0, getFactor2(), getUnit2());
 		}
+		
+		completeSetProperties();
 	}
-
-	@Override
-	public _Rate<T1> calculate(PropertyOne<T1> a, PropertyOne<TimeUnits> b) {
-		double value = a.getValue() / b.getValue();
-		
-		_Rate<T1> temp = new _Rate<T1>();
-		temp.setValue(value);
-		temp.setUnit1(a.getUnits());
-		temp.setFactor1((SIUnits) a.getFactor());
-		temp.setUnit2(b.getUnits());
-		temp.setFactor2((SIUnits) b.getFactor());
-		
-		try {
-			temp.setProperties();
-		} catch (InvalidInputException e) {
-			e.printStackTrace();
-		} catch (SIFactorException e) {
-			e.printStackTrace();
-		}
-		
-		return temp;
-	}
+	
+	protected abstract void completeSetProperties() throws InvalidInputException, NonSIException;
 
 	@Override
 	public double getValueIn(T1 unit1, TimeUnits unit2) {
@@ -132,7 +84,7 @@ public class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
 		this.setValue(value);
 		try {
 			this.setProperties();
-		} catch (InvalidInputException | SIFactorException e) {
+		} catch (InvalidInputException e) {
 			e.printStackTrace();
 		}
 	}
@@ -146,7 +98,7 @@ public class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
 		
 		try {
 			this.setProperties();
-		} catch (InvalidInputException e) {
+		} catch (NonSIException | InvalidInputException e) {
 			e.printStackTrace();
 		}
 	}
@@ -154,17 +106,5 @@ public class _Rate<T1 extends UnitChanger> extends PropertyTwo<T1, TimeUnits>{
 	@Override
 	public String toString() {
 		return String.format("%.3e %s/%s", this.getValue(), property1.printUnits(), property2.printUnits());
-	}
-
-	@Override
-	public _Rate<T1> getIn(T1 unit1, TimeUnits unit2) {
-		double value = this.getValueIn(unit1, unit2);
-		_Rate<T1> temp = new _Rate<T1>(value, unit1, unit2);
-		return temp;
-	}
-
-	@Deprecated
-	public _Rate<T1> setAt(double value) throws InvalidInputException {
-		return null;
 	}
 }

@@ -47,7 +47,7 @@ extends DerivedProperty<T1, T2>{
 	 * @throws InvalidInputException 
 	 * @throws SIFactorException 
 	 */
-	public void setProperties() throws InvalidInputException, SIFactorException;
+	public void setProperties() throws InvalidInputException, NonSIException;
 
 		
 }

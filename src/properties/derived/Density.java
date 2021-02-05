@@ -65,7 +65,7 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		
 		try {
 			temp.setProperties();
-		} catch (SIFactorException e) {
+		} catch (NonSIException e) {
 			e.printStackTrace();
 		}		
 		return temp;
@@ -90,7 +90,7 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 	}
 
 	@Override
-	public void setProperties() throws InvalidInputException, SIFactorException {
+	public void setProperties() throws InvalidInputException, NonSIException {
 		if (getFactor1() == null) {
 			this.property1 = Mass.setAt(getValue(), getUnit1());
 		}else {
@@ -100,7 +100,11 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		if (getFactor2() == null) {
 			this.property2 = Volume.setAt(1.0, getUnit2());
 		}else {
-			this.property2 = Volume.setAt(1.0, getFactor2(), getUnit2());
+			try {
+				this.property2 = Volume.setAt(1.0, getFactor2(), getUnit2());
+			} catch (SIFactorException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -115,7 +119,7 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		temp.setFactor2((SIUnits) b.getFactor());
 		try {
 			temp.setProperties();
-		} catch (InvalidInputException | SIFactorException e) {
+		} catch (InvalidInputException | NonSIException e) {
 			e.printStackTrace();
 		}
 		return temp;
@@ -193,8 +197,7 @@ public class Density extends PropertyTwo<MassUnits, VolumeUnits>{
 		
 		try {
 			this.setProperties();
-		} catch (InvalidInputException | SIFactorException e) {
-			// TODO Auto-generated catch block
+		} catch (InvalidInputException | NonSIException e) {
 			e.printStackTrace();
 		}
 	}

@@ -70,7 +70,7 @@ public class Acceleration extends PropertyTwo<LenghtUnits, TimeUnits>{
 	}
 
 	@Deprecated
-	public void setProperties() throws InvalidInputException, SIFactorException {
+	public void setProperties() throws InvalidInputException, NonSIException {
 		if (getFactor1() == null) {
 			this.property1 = Lenght.setAt(getValue(), getUnit1());
 		}else {

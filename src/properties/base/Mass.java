@@ -36,15 +36,15 @@ public class Mass extends PropertyOne<MassUnits>{
 		return temp;
 	}
 	
-	public static Mass setAt(double value, SIUnits factor, MassUnits isu) throws InvalidInputException {
+	public static Mass setAt(double value, SIUnits factor, MassUnits isu) throws InvalidInputException, NonSIException {
 		if (value < 0) {
 			throw new InvalidInputException(ERROR2);
 		}
 		if (isu == MassUnits.KILOGRAM) {
-			throw new InvalidInputException(ERROR1);
+			throw new NonSIException(ERROR1);
 		}
 		if (isu != MassUnits.GRAM) {
-			throw new InvalidInputException("NonISU");
+			throw new NonSIException("NonISU");
 		}
 		return new Mass(value, factor, isu);
 	}

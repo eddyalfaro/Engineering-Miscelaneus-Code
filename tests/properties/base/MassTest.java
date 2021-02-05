@@ -10,7 +10,6 @@ import constants.SIUnits;
 import exceptions.InvalidInputException;
 import exceptions.NonSIException;
 import exceptions.SIFactorException;
-import properties.base.Mass;
 
 class MassTest {
 	
@@ -68,7 +67,7 @@ class MassTest {
 	}
 
 	@Test
-	void testRemoveSIFactor() throws SIFactorException, InvalidInputException {
+	void testRemoveSIFactor() throws SIFactorException, InvalidInputException, NonSIException {
 		System.out.println("Test #" + testNum);
 		System.out.println(initial);
 		
@@ -138,9 +137,9 @@ class MassTest {
 	}
 
 	@Test
-	void testSetAtDoubleSIUnitsMassUnits() throws InvalidInputException, SIFactorException {
+	void testSetAtDoubleSIUnitsMassUnits() throws InvalidInputException, SIFactorException, NonSIException {
 		System.out.println("Test #" + testNum);
-		assertThrows(InvalidInputException.class, () -> Mass.setAt(initialValue, factor, initialUnit));
+		assertThrows(NonSIException.class, () -> Mass.setAt(initialValue, factor, initialUnit));
 		assertThrows(InvalidInputException.class, () -> Mass.setAt(-10, factor, MassUnits.GRAM));
 		assertThrows(InvalidInputException.class, () -> Mass.setAt(-10, factor, MassUnits.POUND));
 		
